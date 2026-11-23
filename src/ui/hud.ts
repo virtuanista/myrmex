@@ -71,6 +71,24 @@ export function buildHUD() {
   E.modal = h('div', { class: 'modal-bg hidden', onclick: (e: MouseEvent) => { if (e.target === E.modal) closeModal(); } });
   root.append(E.modal);
   refreshHUD(true);
+  watchHudBands(top, bottom);
+}
+
+/** Ajusta los paneles laterales al alto real de las barras superior e inferior
+ *  (en pantallas estrechas la barra de recursos ocupa varias filas). */
+let bandsRO: ResizeObserver | null = null;
+let applyBands: (() => void) | null = null;
+function watchHudBands(top: HTMLElement, bottom: HTMLElement) {
+  bandsRO?.disconnect();
+  if (!applyBands) window.addEventListener('resize', () => applyBands?.());
+  const apply = applyBands = () => {
+    const tb = top.getBoundingClientRect(), bb = bottom.getBoundingClientRect();
+    if (!tb.height) return;
+    root.style.setProperty('--hud-top', Math.round(tb.bottom + 8) + 'px');
+    root.style.setProperty('--hud-bot', Math.round(innerHeight - bb.top + 8) + 'px');
+  };
+  if (typeof ResizeObserver !== 'undefined') { bandsRO = new ResizeObserver(apply); bandsRO.observe(top); bandsRO.observe(bottom); }
+  apply();
 }
 export function hideHUD() { const r = $('#hud'); r.classList.add('hidden'); r.innerHTML = ''; }
 
