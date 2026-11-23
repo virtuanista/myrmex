@@ -36,7 +36,7 @@ Excava túneles, cría castas, investiga, expande tu territorio y derrota a las 
 | **La superficie**: recolección, feromonas y territorio | **El hormiguero**: excava cámaras y cuida a la Reina |
 
 ![Árbol de investigación](docs/capturas/investigacion.jpg)
-<p align="center"><b>Investigación</b>: 27 tecnologías en tres ramas (Economía, Guerra y Colonia)</p>
+<p align="center"><b>Investigación</b>: 28 tecnologías en tres ramas (Economía, Guerra y Colonia)</p>
 
 ## Cómo jugar
 
@@ -64,7 +64,7 @@ La partida se guarda sola en el almacenamiento local del navegador: cada minuto,
 
 - **7 castas** y la Reina: Obrera, Exploradora, Cortadora, Soldado, Lanzaácido, Coloso y Princesa alada.
 - **9 tipos de cámara** con 3 niveles, 12 decoraciones que dan prestigio, 4 edificios de superficie y nidos satélite.
-- **27 tecnologías** en 3 ramas, 34 objetivos encadenados, 24 logros y niveles de colonia.
+- **28 tecnologías** en 3 ramas, 34 objetivos encadenados, 24 logros y niveles de colonia.
 - **10 especies de criaturas**, jefes incluidos, 12 acontecimientos, ciclo de día y noche, y clima.
 - **IA rival** que crece, se expande, lanza incursiones y también se pelea con las demás colonias.
 - **Feromonas y caminos emergentes**: los rastros se refuerzan con el uso y las rutas de recolección aparecen solas.

@@ -202,13 +202,13 @@ const HELP_HTML = `
 <p>Las hormigas tienen vida propia: las <b>obreras</b> salen solas a buscar comida, dejan <b>rastros de feromonas</b> al volver y, poco a poco, forman <b>caminos</b> hacia las mejores fuentes. Tú decides el reparto del trabajo (recolectar, excavar, interior) desde el panel de <b>Colonia</b> <span class="kbd">C</span>.</p>
 <p>La <b>Reina</b> pone huevos sin parar si hay comida, plazas de cría y población disponible. Pon castas en la <b>cola de cría</b>: Exploradoras, Cortadoras, Soldados, Lanzaácidos, Colosos y Princesas aladas.</p>
 <h4>🕳️ El hormiguero</h4>
-<p>Pulsa <span class="kbd">Tab</span> para ver el corte del hormiguero. Usa <b>Excavar</b> <span class="kbd">F</span> para pintar túneles, y <b>Cámaras</b> <span class="kbd">B</span> para colocar Despensas, Guarderías, Dormitorios, Cuarteles, Laboratorios… Se excavará un túnel automáticamente hasta ellas.</p>
+<p>Pulsa <span class="kbd">Tab</span> para ver el corte del hormiguero. Usa <b>Excavar</b> <span class="kbd">F</span> para pintar túneles, y <b>Cámaras</b> <span class="kbd">B</span> para colocar Despensas, Guarderías, Dormitorios, Cuarteles, Cámaras de Feromonas… Se excavará un túnel automáticamente hasta ellas.</p>
 <p>Al excavar obtienes <b>tierra</b> y, a veces, <b>tesoros</b> (busca los destellos). Decora las cámaras <span class="kbd">V</span> para ganar <b>Prestigio</b>: bonifica todo el trabajo de la colonia.</p>
 <h4>🌿 La superficie</h4>
 <p>Arrastra para seleccionar · <b>Clic derecho</b> para mover (las militares atacan por el camino), atacar o recolectar · <span class="kbd">Q</span> selecciona el ejército · <span class="kbd">Ctrl</span>+<span class="kbd">1-9</span> crea grupos · <span class="kbd">X</span> detener · <span class="kbd">H</span> volver · <span class="kbd">Shift</span>+clic derecho patrullar.</p>
 <p><b>Construye</b> <span class="kbd">B</span> Montículos para expandir tu territorio y acortar los viajes, Garitas ácidas para defenderte y Corrales de pulgones para obtener melaza.</p>
 <h4>🧪 Progreso</h4>
-<p>Las <b>Cámaras de Feromonas</b> generan Saber para investigar <span class="kbd">R</span> 27 tecnologías. Cumple <b>objetivos</b> y <b>logros</b>, sube de nivel tu colonia y desbloquea decoraciones.</p>
+<p>Las <b>Cámaras de Feromonas</b> generan Saber para investigar <span class="kbd">R</span> 28 tecnologías. Cumple <b>objetivos</b> y <b>logros</b>, sube de nivel tu colonia y desbloquea decoraciones.</p>
 <h4>⚔️ Peligros</h4>
 <p>Arañas, ciempiés nocturnos, termitas, mantis gigantes, pájaros… y las <b>colonias rivales</b>, que crecen, se expanden y lanzan incursiones. Destruye la entrada de sus hormigueros para eliminarlas. Si cae tu entrada, la Reina queda expuesta.</p>
 <h4>🌐 Cooperativo online</h4>
