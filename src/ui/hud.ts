@@ -98,7 +98,7 @@ function buildBadge() {
   const c = COLONY_COLORS[p.color];
   const emb = h('div', { class: 'emb', style: { background: `radial-gradient(circle at 35% 30%, ${c.light}, ${c.body})` } }, EMBLEMS[p.emblem], h('span', { class: 'lvl' }, ''));
   const xp = h('div', { class: 'xpbar' }, h('i'));
-  E.badge.append(emb, h('div', {}, h('div', { class: 'nm' }, S.cfg.colonyName), h('div', { class: 'pl' }, '♛ ' + S.cfg.queenName + ' · ' + S.cfg.playerName), xp));
+  E.badge.append(emb, h('div', {}, h('div', { class: 'nm', title: S.cfg.colonyName }, S.cfg.colonyName), h('div', { class: 'pl' }, '♛ ' + S.cfg.queenName + ' · ' + S.cfg.playerName), xp));
   bindTip(E.badge, () => `<b>Nivel de colonia ${p.level}</b><br>Experiencia: ${Math.floor(p.xp)} / ${xpFor(p.level)}<br><span style="color:#bfae98">Gana experiencia recolectando, excavando, criando, descubriendo y combatiendo. Cada nivel da recompensas y desbloquea decoraciones.</span>`);
 }
 const PILLS: { k: string; icon: string; tip: () => string }[] = [

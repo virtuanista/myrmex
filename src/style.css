@@ -50,7 +50,7 @@ button { font-family: inherit; color: inherit; }
 .screen { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; animation: fadeIn .4s ease; }
 .screen.title { background: radial-gradient(ellipse at 50% 120%, rgba(255, 150, 40, 0.12), transparent 60%), linear-gradient(180deg, rgba(8, 6, 4, 0.35), rgba(8, 6, 4, 0.75)); }
 .title-wrap { display: flex; flex-direction: column; align-items: center; gap: 26px; transform: translateY(-2vh); }
-.logo { font-family: var(--display); font-weight: 900; font-size: clamp(64px, 11vw, 150px); letter-spacing: 0.06em; line-height: 0.9;
+.logo { font-family: var(--display); font-weight: 900; font-size: clamp(56px, min(11vw, 16vh), 150px); letter-spacing: 0.06em; line-height: 0.9;
   background: linear-gradient(180deg, #fff1cf 0%, #ffc15a 45%, #d8701a 75%, #7a3608 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
   filter: drop-shadow(0 6px 0 rgba(60, 24, 4, 0.9)) drop-shadow(0 18px 40px rgba(255, 140, 30, 0.35)); animation: logoIn 1.2s cubic-bezier(.2, 1.4, .3, 1) both; }
 .subtitle { font-family: var(--display); font-weight: 600; font-style: italic; font-size: clamp(16px, 2.2vw, 26px); color: #ffe2b0; letter-spacing: 0.08em; opacity: 0.9; margin-top: -10px; animation: fadeUp 1s .4s both; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8); }
@@ -102,6 +102,7 @@ input[type=range] { accent-color: var(--amber); width: 100%; }
 .badge .emb .lvl { position: absolute; bottom: -6px; right: -6px; background: #1d140c; border: 2px solid var(--amber); color: var(--amber); font-size: 11px; font-weight: 900; border-radius: 9px; padding: 0 5px; line-height: 16px; }
 .badge .nm { font-weight: 900; font-size: 15px; line-height: 1.1; }
 .badge .pl { font-size: 11px; color: var(--dim); }
+.badge .nm, .badge .pl { max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .xpbar { height: 5px; border-radius: 4px; background: rgba(0, 0, 0, 0.45); overflow: hidden; margin-top: 4px; width: 140px; }
 .xpbar i { display: block; height: 100%; background: linear-gradient(90deg, #ffd27a, #ff8f1f); width: 0; transition: width .5s ease; box-shadow: 0 0 10px #ffb547; }
 .resbar { display: flex; gap: 6px; padding: 6px; border-radius: 16px; flex: 1; justify-content: center; flex-wrap: wrap; }
@@ -182,7 +183,7 @@ input[type=range] { accent-color: var(--amber); width: 100%; }
 
 /* ---------- Panel lateral ---------- */
 .drawer { position: absolute; right: 74px; top: var(--hud-top, 82px); bottom: var(--hud-bot, 140px); width: 380px; padding: 16px; border-radius: 18px; overflow-y: auto; animation: slideIn .25s cubic-bezier(.2, 1.2, .4, 1); }
-.drawer h2 { font-family: var(--display); margin: 0 0 4px; font-size: 24px; color: #ffe0a8; }
+.drawer h2 { font-family: var(--display); margin: 0 0 4px; padding-right: 40px; font-size: 24px; color: #ffe0a8; }
 .drawer h4 { margin: 16px 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--amber); }
 .caste-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 .caste { padding: 9px; border-radius: 12px; border: 1px solid var(--line); background: rgba(0, 0, 0, 0.25); cursor: pointer; display: flex; gap: 8px; align-items: center; transition: all .15s; position: relative; }
@@ -280,9 +281,12 @@ input[type=range] { accent-color: var(--amber); width: 100%; }
 @media (max-width: 1100px) {
   .quests { width: 220px; }
   .badge { min-width: 0; }
+  .badge .nm, .badge .pl { max-width: 160px; }
   .pill { min-width: 0; padding: 4px 8px 4px 6px; gap: 5px; }
   .pill .ic { font-size: 15px; }
   .pill .v { font-size: 14px; }
+  .seg button { flex: 1 1 auto; min-width: 48px; }
+  .ctx-title { flex-wrap: wrap; row-gap: 0; }
   .minimap canvas { width: 170px; height: 128px; }
   .drawer { width: 330px; }
 }
@@ -292,8 +296,8 @@ input[type=range] { accent-color: var(--amber); width: 100%; }
 #hud input[type=text]:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(255, 181, 71, 0.2); }
 .codebox { width: 100%; resize: vertical; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--line2); border-radius: 10px; color: #ffe9c0; font: 600 11px/1.35 ui-monospace, Consolas, monospace; padding: 10px; outline: none; word-break: break-all; }
 .codebox:focus { border-color: var(--amber); }
-.chat-in { position: absolute; left: 50%; bottom: 150px; transform: translateX(-50%); width: min(520px, 80vw); z-index: 30; padding: 12px 16px !important; font-size: 15px !important; box-shadow: var(--shadow); }
-.net-chip { position: absolute; bottom: 136px; left: 50%; transform: translateX(-50%); padding: 5px 12px; border-radius: 10px; background: rgba(30, 60, 90, 0.85); border: 1px solid rgba(127, 200, 255, 0.5); font-size: 12px; font-weight: 800; z-index: 4; pointer-events: none; }
+.chat-in { position: absolute; left: 50%; bottom: calc(var(--hud-bot, 140px) + 34px); transform: translateX(-50%); width: min(520px, 80vw); z-index: 30; padding: 12px 16px !important; font-size: 15px !important; box-shadow: var(--shadow); }
+.net-chip { position: absolute; bottom: var(--hud-bot, 136px); left: 50%; transform: translateX(-50%); padding: 5px 12px; border-radius: 10px; background: rgba(30, 60, 90, 0.85); border: 1px solid rgba(127, 200, 255, 0.5); font-size: 12px; font-weight: 800; z-index: 4; pointer-events: none; }
 
 /* Pantallas bajas (p. ej. el embed de 960×600): botones laterales más compactos */
 @media (max-height: 700px) {
@@ -301,4 +305,12 @@ input[type=range] { accent-color: var(--amber); width: 100%; }
   .sidebtn { width: 46px; height: 46px; border-radius: 13px; }
   .sidebtn .i { font-size: 19px; }
   .drawer { right: 66px; }
+}
+
+/* Título en pantallas bajas: con «Continuar» hay 7 botones y no cabían en 600 px de alto */
+@media (max-height: 760px) {
+  .title-wrap { gap: 14px; transform: none; }
+  .menu-col { gap: 8px; }
+  .menu-col .btn { font-size: 16px; padding: 10px 22px; }
+  .menu-foot { bottom: 8px; font-size: 12px; }
 }
