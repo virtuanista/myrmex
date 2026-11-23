@@ -116,3 +116,8 @@ export function b64ToU8(b64: string): Uint8Array {
   for (let i = 0; i < s.length; i++) u8[i] = s.charCodeAt(i);
   return u8;
 }
+
+/** «Reina X» sin duplicar el título si el nombre ya lo lleva. */
+export const queenTitle = (n: string) => (/^reina/i.test(n.trim()) ? n.trim() : 'Reina ' + n.trim());
+/** Escapa texto para insertarlo en HTML. */
+export const escHtml = (s: string) => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));

@@ -5,7 +5,7 @@ import { deleteSave, lastSlot, listSaves, saveGame } from '../game/save';
 import { Settings, SFX, applyVolumes, initAudio } from '../audio/audio';
 import { antSprite } from '../render/sprites';
 import { $, h, hideTip, toast } from './dom';
-import { fmtTime } from '../core/util';
+import { fmtTime, escHtml } from '../core/util';
 import { dayNumber } from '../game/time';
 import { UI } from './uistate';
 import { CC } from '../game/colony';
@@ -242,13 +242,14 @@ function showCredits() {
 }
 
 // ---------------- Intro de partida ----------------
+const BIOME_ART: Record<string, string> = { meadow: 'la pradera', forest: 'el bosque', garden: 'el jardín seco' };
 export function showIntro(onGo: () => void) {
   const S = G.S;
   clear();
   const dlg = h('div', { class: 'card dialog', style: { width: 'min(640px, 94vw)', textAlign: 'center' } },
     h('div', { style: { fontSize: '54px' } }, EMBLEMS[S.cfg.emblem]),
     h('h2', {}, S.cfg.colonyName),
-    h('p', { class: 'lead', html: `Tras el vuelo nupcial, <b>${S.cfg.queenName}</b> se ha enterrado en ${BIOMES[S.cfg.biome].name.toLowerCase()}. Sus primeras hijas ya exploran la hierba.<br><br>${S.cfg.rivals ? `<b style="color:#ff8a7a">${S.cfg.rivals} colonia${S.cfg.rivals > 1 ? 's' : ''} rival${S.cfg.rivals > 1 ? 'es' : ''}</b> acechan en algún lugar del mapa.` : 'No hay rivales: el mundo es tuyo.'}` }),
+    h('p', { class: 'lead', html: `Tras el vuelo nupcial, <b>${escHtml(S.cfg.queenName)}</b> se ha enterrado en ${BIOME_ART[S.cfg.biome] ?? BIOMES[S.cfg.biome].name.toLowerCase()}. Sus primeras hijas ya exploran la hierba.<br><br>${S.cfg.rivals ? `<b style="color:#ff8a7a">${S.cfg.rivals} colonia${S.cfg.rivals > 1 ? 's' : ''} rival${S.cfg.rivals > 1 ? 'es' : ''}</b> acechan en algún lugar del mapa.` : 'No hay rivales: el mundo es tuyo.'}` }),
     h('p', { class: 'hint' }, 'Consejo: sigue los objetivos de la izquierda. Pulsa Tab para ver tu hormiguero.'),
     h('div', { style: { marginTop: '14px' } }, btn('🌱  Comenzar', 'primary', () => { clear(); onGo(); })));
   screens().append(h('div', { class: 'screen', style: { background: 'rgba(5,4,3,0.55)' } }, dlg));
@@ -304,7 +305,7 @@ export function showEnd(victory: boolean) {
   const dlg = h('div', { class: 'card dialog endscreen', style: { width: 'min(640px, 94vw)' } },
     h('div', { style: { fontSize: '64px' } }, victory ? '👑' : '☠️'),
     h('h1', { class: 'big', style: { color: victory ? '#ffd27a' : '#ff8a7a' } }, victory ? '¡Victoria!' : 'La Reina ha caído'),
-    h('p', { class: 'lead' }, victory ? `${S.cfg.colonyName} reina sobre toda la hierba. ${S.cfg.queenName} será recordada durante mil generaciones.` : `${S.cfg.colonyName} ha sido derrotada en el día ${dayNumber()}. Pero las colonias siempre renacen...`),
+    h('p', { class: 'lead' }, victory ? `${S.cfg.colonyName} reina sobre toda la hierba. ${S.cfg.queenName} será recordada durante mil generaciones.` : `${S.cfg.colonyName} ha sido derrotada en el día ${dayNumber()}. Pero las colonias siempre renacen…`),
     h('div', { class: 'statgrid', style: { gridTemplateColumns: 'repeat(3,1fr)', margin: '16px 0' }, html: [['Tiempo', fmtTime(S.time)], ['Población máx.', st.maxPop], ['Comida', Math.floor(st.gathered.food)], ['Enemigos abatidos', st.antKills], ['Colonias destruidas', st.coloniesDestroyed], ['Nivel', S.colonies[0].level]].map(([a, b]) => `<div class="stat">${a}<b>${b}</b></div>`).join('') }),
     h('div', { style: { display: 'flex', gap: '10px', justifyContent: 'center' } },
       victory ? btn('🌱 Seguir jugando', 'primary', () => { wrap.remove(); S.paused = false; UI.modalOpen = false; }) : btn('📂 Cargar partida', 'primary', () => { wrap.remove(); UI.modalOpen = false; showLoadInGame(); }),

@@ -13,7 +13,7 @@ import { $, bindTip, costEl, costHTML, h, hideTip, setBanner, setToastBox, toast
 import { UI } from './uistate';
 import { jumpTo } from './camera';
 import { SFX, setUnderground } from '../audio/audio';
-import { fmt, fmtTime } from '../core/util';
+import { fmt, fmtTime, queenTitle } from '../core/util';
 import { drawMinimap, initMinimap } from './minimap';
 import { openPauseMenu, openHelp } from './menus';
 import { saveGame } from '../game/save';
@@ -429,7 +429,7 @@ function buildStructInfo(main: HTMLElement, s: typeof G.S.structures[0]) {
   live.push(() => {
     (hp.firstElementChild as HTMLElement).style.width = (s.hp / s.mhp) * 100 + '%';
     txt.textContent = s.built ? `Vida ${Math.ceil(s.hp)}/${s.mhp} · Territorio ${d.territory} · Visión ${d.vision}` : `En construcción: ${Math.floor((s.prog / d.work) * 100)}% — las obreras cercanas acudirán a construir`;
-    if (s.type === 'rivalnest') txt.textContent += ` · Reina ${col.queenName} · Fuerza ×${col.ai.power.toFixed(2)}`;
+    if (s.type === 'rivalnest') txt.textContent += ` · ${queenTitle(col.queenName)} · Fuerza ×${col.ai.power.toFixed(2)}`;
   });
   const act = h('div', { class: 'ctx-actions' });
   if (s.type === 'nest') act.append(h('button', { class: 'btn small primary', onclick: () => setView('nest') }, '🕳️ Entrar al hormiguero'), h('button', { class: 'btn small', onclick: () => { resetRally(); toast('🚩', 'Punto de reunión restablecido', '', 'info', undefined, 1800); } }, '🚩 Reunión en el nido'));
@@ -551,7 +551,7 @@ function buildColonyDrawer(el: HTMLElement) {
   el.append(h('h2', {}, '👑 ' + S.cfg.colonyName));
   const sub = h('div', { class: 'hint' });
   el.append(sub);
-  liveDrawer.push(() => { const ps = pstats(); sub.textContent = `La Reina ${S.cfg.queenName} pone un huevo cada ${ps.eggInterval.toFixed(1)} s · Cría ${broodCount()}/${ps.broodCap}`; });
+  liveDrawer.push(() => { const ps = pstats(); sub.textContent = `${queenTitle(S.cfg.queenName)} pone un huevo cada ${ps.eggInterval.toFixed(1)} s · Cría ${broodCount()}/${ps.broodCap}`; });
   // castas
   el.append(h('h4', {}, '🥚 Criar castas', h('span', { class: 'hint', style: { textTransform: 'none', letterSpacing: '0', marginLeft: '6px' } }, 'Clic +1 · Shift +5')));
   const grid = h('div', { class: 'caste-grid' });
