@@ -24,7 +24,7 @@ export function resetTips() { shown.clear(); ls.del('myrmex.tips'); }
 
 let acc = 0, started = 0;
 export function initTips() {
-  on('raid', () => tip('raid', 'Defiende tu colonia', 'Pulsa Q para seleccionar tu ejército y haz clic derecho sobre los enemigos. Las torres y el cuartel ayudan mucho.'));
+  on('raid', () => tip('raid', 'Defiende tu colonia', 'Pulsa Q para seleccionar tu ejército y haz clic derecho sobre los enemigos. Las garitas ácidas y el cuartel ayudan mucho.'));
   on('chamberDone', d => { if (d.c.type === 'lab') tip('lab', 'Ya generas Saber', 'Abre el árbol de Investigación con R y elige tu primera tecnología.'); });
   on('treasure', () => tip('treasure', '¡Tesoros bajo tierra!', 'Busca los destellos cerca de tus túneles: excavar allí da ámbar, fósiles y cristales.'));
   on('hatch', d => { if (d.caste === 'soldier') tip('soldier', 'Tu primera soldado', 'Las militares vigilan el punto de reunión. Selecciónalas arrastrando y dales órdenes con clic derecho.'); });
