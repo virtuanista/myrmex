@@ -34,7 +34,33 @@ export function initInput() {
   window.addEventListener('keydown', onKey);
   window.addEventListener('keyup', e => keys.delete(e.key.toLowerCase()));
   window.addEventListener('blur', () => keys.clear());
+  // Embebido en un iframe (itch.io): que flechas, espacio, rueda, etc. no desplacen la página contenedora.
+  window.addEventListener('keydown', blockPageScrollKeys);
+  window.addEventListener('wheel', blockPageWheel, { passive: false });
   initTouch(cv);
+}
+
+const SCROLL_KEYS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' ', 'PageUp', 'PageDown', 'Home', 'End']);
+function isEditable(el: EventTarget | null) {
+  const t = el as HTMLElement | null;
+  return !!t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable);
+}
+function blockPageScrollKeys(e: KeyboardEvent) {
+  if (!SCROLL_KEYS.has(e.key) || isEditable(e.target)) return;
+  // el espacio sobre un botón enfocado sigue pulsándolo
+  if (e.key === ' ' && (e.target as HTMLElement)?.tagName === 'BUTTON') return;
+  e.preventDefault();
+}
+/** Deja pasar la rueda solo si algún elemento bajo el ratón puede desplazarse en esa dirección. */
+function blockPageWheel(e: WheelEvent) {
+  if (e.defaultPrevented) return;
+  for (let el = e.target as HTMLElement | null; el && el !== document.body; el = el.parentElement) {
+    const st = getComputedStyle(el);
+    if (/(auto|scroll)/.test(st.overflowY) && el.scrollHeight > el.clientHeight + 1) {
+      if (e.deltaY < 0 ? el.scrollTop > 0 : el.scrollTop + el.clientHeight < el.scrollHeight - 1) return;
+    }
+  }
+  e.preventDefault();
 }
 
 function inGame() { return APP.mode === 'game' && G.S && G.S.over !== 2; }
