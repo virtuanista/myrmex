@@ -235,7 +235,9 @@ function showCredits() {
     h('h2', {}, 'MYRMEX'),
     h('p', { class: 'lead' }, 'Imperio bajo la hierba'),
     h('p', {}, 'Diseño, programación, arte procedural, música generativa y efectos de sonido sintetizados creados íntegramente para este juego.'),
-    h('p', { class: 'hint' }, 'Todo el contenido visual y sonoro se genera en tiempo real con Canvas 2D y Web Audio: no se usa ningún recurso de terceros.'),
+    h('p', { class: 'hint' }, 'Todo el contenido visual y sonoro se genera en tiempo real con Canvas 2D y Web Audio, sin imágenes ni sonidos de terceros.'),
+    h('p', { class: 'hint' }, 'Tipografías: Nunito (Vernon Adams y otros) y Fraunces (Undercase Type), con licencia SIL Open Font License 1.1, servidas por Google Fonts.'),
+    h('p', { class: 'hint' }, 'Código publicado con licencia MIT.'),
     h('p', { class: 'hint' }, 'Inspirado por la extraordinaria vida de las hormigas: feromonas, castas, cultivo de hongos, pastoreo de pulgones y vuelos nupciales.'),
     h('p', { style: { marginTop: '20px' } }, btn('Volver', 'primary', () => showTitle())));
   screens().append(h('div', { class: 'screen' }, dlg));
