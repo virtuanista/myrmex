@@ -6,6 +6,7 @@ import { on } from '../core/bus';
 import { TECHS } from '../game/defs';
 import { techAvailable } from '../game/actions';
 import { APP } from './camera';
+import { ls } from '../core/util';
 
 let shown: Set<string> = new Set();
 try { shown = new Set(JSON.parse(localStorage.getItem('myrmex.tips') || '[]')); } catch { /* */ }
@@ -19,7 +20,7 @@ function tip(id: string, title: string, text: string) {
   toast('💡', title, text, 'info', undefined, 11000);
   return true;
 }
-export function resetTips() { shown.clear(); localStorage.removeItem('myrmex.tips'); }
+export function resetTips() { shown.clear(); ls.del('myrmex.tips'); }
 
 let acc = 0, started = 0;
 export function initTips() {

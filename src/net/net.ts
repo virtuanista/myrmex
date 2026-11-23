@@ -3,7 +3,7 @@ import { G, Ant, Creature, Projectile, GameState } from '../game/state';
 import { CASTES, CasteId, CREATURES, CreatureType, ResKey } from '../game/defs';
 import { EVENTS } from '../game/events';
 import { serialize, deserialize, compress, decompress, q8, dq8, fixAnt } from '../game/save';
-import { u8ToB64, b64ToU8 } from '../core/util';
+import { u8ToB64, b64ToU8, ls } from '../core/util';
 import { emit, on } from '../core/bus';
 import { markNestDirty } from '../game/nest';
 import { invalidatePStats } from '../game/colony';
@@ -54,7 +54,7 @@ function setupChannel(dc: RTCDataChannel) {
     NET.connected = true;
     lastRecv = performance.now();
     status('Conectado');
-    send({ t: 'hello', name: localStorage.getItem('myrmex.player') || (NET.role === 'host' ? G.S?.cfg.playerName : 'Invitada') });
+    send({ t: 'hello', name: ls.get('myrmex.player') || (NET.role === 'host' ? G.S?.cfg.playerName : 'Invitada') });
     if (NET.role === 'host') sendFull();
   };
   dc.onclose = () => { lastRecv = 0; const was = NET.connected; NET.connected = false; status('Desconectado'); if (was) { emit('netLost', { role: NET.role }); if (NET.role === 'guest') handlers.onHostLost?.(); } };

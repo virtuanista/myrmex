@@ -121,3 +121,9 @@ export function b64ToU8(b64: string): Uint8Array {
 export const queenTitle = (n: string) => (/^reina(\s|$)/i.test(n.trim()) ? n.trim() : 'Reina ' + n.trim());
 /** Escapa texto para insertarlo en HTML. */
 export const escHtml = (s: string) => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
+/** localStorage a prueba de fallos (iframe con almacenamiento bloqueado, modo privado, cuota llena). */
+export const ls = {
+  get(k: string): string | null { try { return localStorage.getItem(k); } catch { return null; } },
+  set(k: string, v: string): boolean { try { localStorage.setItem(k, v); return true; } catch { return false; } },
+  del(k: string) { try { localStorage.removeItem(k); } catch { /* */ } },
+};

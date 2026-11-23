@@ -5,7 +5,7 @@ import { initPher, PW, PH } from './ants';
 import { clearNavCaches } from './nav';
 import { markNestDirty, updateNestFields } from './nest';
 import { invalidatePStats, CC } from './colony';
-import { u8ToB64, b64ToU8 } from '../core/util';
+import { u8ToB64, b64ToU8, ls } from '../core/util';
 import { dayNumber } from './time';
 
 const DB = 'myrmex', STORE = 'saves';
@@ -44,15 +44,15 @@ async function idbDel(key: string) {
 
 export interface SaveMeta { slot: string; colony: string; player: string; day: number; pop: number; level: number; played: number; date: number; biome: string; over: number }
 export function listSaves(): SaveMeta[] {
-  try { return (JSON.parse(localStorage.getItem('myrmex.saves') || '[]') as SaveMeta[]).sort((a, b) => b.date - a.date); } catch { return []; }
+  try { return (JSON.parse(ls.get('myrmex.saves') || '[]') as SaveMeta[]).sort((a, b) => b.date - a.date); } catch { return []; }
 }
 function putMeta(m: SaveMeta) {
   const l = listSaves().filter(x => x.slot !== m.slot);
   l.push(m);
-  localStorage.setItem('myrmex.saves', JSON.stringify(l));
+  ls.set('myrmex.saves', JSON.stringify(l));
 }
 export async function deleteSave(slot: string) {
-  localStorage.setItem('myrmex.saves', JSON.stringify(listSaves().filter(x => x.slot !== slot)));
+  ls.set('myrmex.saves', JSON.stringify(listSaves().filter(x => x.slot !== slot)));
   try { await idbDel(slot); } catch { /* */ }
 }
 
@@ -101,7 +101,7 @@ async function doSave(slot?: string): Promise<boolean> {
     const data = await compress(serialize(S));
     await idbPut(S.slot, data);
     putMeta({ slot: S.slot, colony: S.cfg.colonyName, player: S.cfg.playerName, day: dayNumber(), pop: CC[0]?.total ?? S.ants.filter(a => a.col === 0).length, level: S.colonies[0].level, played: S.played, date: Date.now(), biome: S.cfg.biome, over: S.over });
-    localStorage.setItem('myrmex.last', S.slot);
+    ls.set('myrmex.last', S.slot);
     return true;
   } catch (e) {
     console.error('Error al guardar', e);
@@ -151,7 +151,7 @@ export function fixAnt(a: any) {
 export { q8, dq8 };
 
 export function lastSlot(): string | null {
-  const l = localStorage.getItem('myrmex.last');
+  const l = ls.get('myrmex.last');
   if (l && listSaves().some(s => s.slot === l)) return l;
   const s = listSaves()[0];
   return s ? s.slot : null;

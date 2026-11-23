@@ -5,7 +5,7 @@ import { deleteSave, lastSlot, listSaves, saveGame } from '../game/save';
 import { Settings, SFX, applyVolumes, initAudio } from '../audio/audio';
 import { antSprite } from '../render/sprites';
 import { $, h, hideTip, toast } from './dom';
-import { fmtTime, escHtml } from '../core/util';
+import { fmtTime, escHtml, ls } from '../core/util';
 import { dayNumber } from '../game/time';
 import { UI } from './uistate';
 import { CC } from '../game/colony';
@@ -56,7 +56,7 @@ const rp = <T,>(a: T[]) => a[Math.floor(Math.random() * a.length)];
 export function showNewGame() {
   clear();
   const cfg: GameConfig = {
-    playerName: localStorage.getItem('myrmex.player') || 'Jugadora', colonyName: rp(CP) + ' ' + rp(CS), queenName: 'Reina ' + rp(QUEENS),
+    playerName: ls.get('myrmex.player') || 'Jugadora', colonyName: rp(CP) + ' ' + rp(CS), queenName: 'Reina ' + rp(QUEENS),
     color: 0, emblem: 0, biome: 'meadow', size: 'medium', rivals: 2, difficulty: 1, seed: Math.floor(Math.random() * 999999),
     mode: 'conquest', startRes: 1, creatures: 1,
   };
@@ -130,7 +130,7 @@ export function showNewGame() {
         if (!cfg.colonyName.trim()) cfg.colonyName = 'Colonia sin nombre';
         if (!cfg.queenName.trim()) cfg.queenName = 'Reina ' + rp(QUEENS);
         if (cfg.size === 'small' && cfg.rivals > 3) cfg.rivals = 3;
-        localStorage.setItem('myrmex.player', cfg.playerName);
+        ls.set('myrmex.player', cfg.playerName);
         Nav.start(cfg);
       })),
   );
