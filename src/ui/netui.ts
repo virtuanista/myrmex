@@ -19,10 +19,31 @@ function modal(content: HTMLElement, onClose?: () => void) {
 function codeBox(value = '', readonly = false) {
   const t = h('textarea', { class: 'codebox', rows: '4', spellcheck: 'false' }) as HTMLTextAreaElement;
   t.value = value; t.readOnly = readonly;
+  // los códigos de solo lectura se seleccionan enteros al hacer clic, para copiarlos a mano
+  if (readonly) t.addEventListener('focus', () => t.select());
   return t;
 }
+/** Copia el código. Dentro de un iframe (itch.io) la API del portapapeles suele estar
+ *  bloqueada: se prueba execCommand y, si tampoco va, se deja seleccionado para Ctrl+C. */
 function copyBtn(t: HTMLTextAreaElement) {
-  return h('button', { class: 'btn small', onclick: async () => { try { await navigator.clipboard.writeText(t.value); toast('📋', 'Código copiado', '', 'info', undefined, 1500); } catch { t.select(); document.execCommand('copy'); } SFX.click(); } }, '📋 Copiar');
+  const hint = h('div', { class: 'hint', style: { flex: '1', minWidth: '0' } }, '');
+  const b = h('button', { class: 'btn small', onclick: async () => {
+    SFX.click();
+    if (!t.value) { hint.textContent = 'El código aún se está generando…'; return; }
+    // 1) copia clásica sobre la selección: funciona dentro del iframe con el gesto del clic
+    t.focus(); t.select(); t.setSelectionRange(0, t.value.length);
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch { ok = false; }
+    // 2) API moderna, solo si la política de permisos del iframe la permite (si no, Chrome avisa en consola)
+    const pp = (document as any).permissionsPolicy ?? (document as any).featurePolicy;
+    const allowed = !pp?.allowsFeature || pp.allowsFeature('clipboard-write');
+    if (!ok && allowed && navigator.clipboard && window.isSecureContext) {
+      try { await navigator.clipboard.writeText(t.value); ok = true; } catch { /* sin permiso */ }
+    }
+    if (ok) { b.textContent = '✔ Copiado'; hint.textContent = 'Código copiado. Envíaselo por chat, correo…'; setTimeout(() => { b.textContent = '📋 Copiar'; }, 1800); }
+    else { t.focus(); t.select(); hint.textContent = 'Tu navegador no deja copiar automáticamente: el código ya está seleccionado, pulsa Ctrl+C (⌘+C en Mac).'; }
+  } }, '📋 Copiar');
+  return h('div', { style: { display: 'flex', gap: '10px', alignItems: 'center', flex: '1' } }, b, hint);
 }
 
 /** Anfitrión: invitar a otra jugadora a la colonia */
@@ -52,7 +73,7 @@ export function openJoinDialog(onReady: () => void) {
   const ansWrap = h('div', { class: 'field hidden', style: { marginTop: '14px' } }, h('label', {}, '2 · Envía este código de respuesta al anfitrión'), answer, h('div', { style: { display: 'flex', gap: '8px', marginTop: '6px' } }, copyBtn(answer)));
   const body = h('div', {},
     h('h2', {}, '🌐 Unirse a una colonia'),
-    h('p', { class: 'lead' }, 'Pide a tu compañera que abra el menú de pausa → «Invitar» y te pase su código.'),
+    h('p', { class: 'lead' }, 'Pide a tu compañera que abra el menú de pausa → «Invitar a una amiga» y te pase su código.'),
     h('div', { class: 'field' }, h('label', {}, '1 · Código de invitación'), offer,
       h('div', { style: { display: 'flex', gap: '8px', marginTop: '6px' } }, h('button', { class: 'btn primary small', onclick: async () => { try { st.textContent = 'Generando respuesta…'; answer.value = await guestAnswer(offer.value); ansWrap.classList.remove('hidden'); } catch (e) { st.textContent = '⚠️ Código no válido: ' + e; } } }, '✔ Generar respuesta'))),
     ansWrap, st);
