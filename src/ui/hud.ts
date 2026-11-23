@@ -327,7 +327,7 @@ function buildContext() {
       tool('⚔️', 'Ejército', { key: 'Q', tip: 'Selecciona a todas tus hormigas militares de superficie.', onclick: () => selectArmy() }),
       tool('🐜', 'Obreras', { key: 'Z', tip: 'Selecciona a las obreras visibles.', onclick: () => selectWorkersOnScreen() }),
       tool('🚩', 'Reunión', { tip: 'Fija el punto de reunión donde esperan las nuevas tropas.', on: UI.placing?.kind === 'rally', onclick: () => { UI.placing = UI.placing?.kind === 'rally' ? null : { kind: 'rally' }; refreshHUD(true); } }),
-      tool('🏗️', 'Construir', { key: 'B', tip: 'Montículos, torres, corrales...', onclick: () => toggleBuild() }),
+      tool('🏗️', 'Construir', { key: 'B', tip: 'Montículos, garitas, corrales…', onclick: () => toggleBuild() }),
       tool('〰️', 'Feromonas', { key: 'P', on: UI.showPher, tip: 'Mostrar los rastros de feromonas de tu colonia.', onclick: () => { UI.showPher = !UI.showPher; refreshHUD(true); } }),
       tool('🗺️', 'Territorio', { key: 'T', on: UI.showTerritory, tip: 'Mostrar las fronteras.', onclick: () => { UI.showTerritory = !UI.showTerritory; refreshHUD(true); } }),
     );

@@ -48,7 +48,7 @@ export const EVENTS: EventDef[] = [
   },
   {
     id: 'picnic', name: 'Restos de picnic', icon: '🧺', good: true, dur: 0,
-    desc: 'Unos gigantes han dejado migas por todas partes. ¡Un festín... vigilado por otros!',
+    desc: 'Unos gigantes han dejado migas por todas partes. ¡Un festín… vigilado por otros!',
     weight: () => 1.5,
     start: e => {
       const p = randomWildSpot(350) || playerNest(); e.x = p.x; e.y = p.y;

@@ -13,7 +13,7 @@ const pop = () => CC[0]?.total ?? 0;
 
 export const QUESTS: QuestDef[] = [
   { id: 'food50', title: 'Primeras provisiones', desc: 'Recolecta 50 de comida.', goal: 50, prog: S => S.stats.gathered.food, reward: { amber: 5, leaves: 10 }, xp: 25, hint: 'Las obreras recolectan solas. Sigue sus rastros de feromonas.' },
-  { id: 'storage', title: 'Una buena despensa', desc: 'Excava una Despensa en el hormiguero.', goal: 1, prog: S => cham(S, 'storage'), reward: { food: 40 }, xp: 30, hint: 'Pulsa TAB para ver el hormiguero y elige Cámaras → Despensa.' },
+  { id: 'storage', title: 'Una buena despensa', desc: 'Excava una Despensa en el hormiguero.', goal: 1, prog: S => cham(S, 'storage'), reward: { food: 40 }, xp: 30, hint: 'Pulsa Tab para ver el hormiguero y elige Cámaras → Despensa.' },
   { id: 'nursery', title: 'Cuna de la colonia', desc: 'Excava una Guardería.', goal: 1, prog: S => cham(S, 'nursery'), reward: { food: 50, leaves: 20 }, xp: 35, hint: 'La guardería permite criar muchas más larvas a la vez.' },
   { id: 'pop15', title: 'Población creciente', desc: 'Alcanza 15 hormigas.', goal: 15, prog: () => pop(), reward: { food: 40, amber: 4 }, xp: 35 },
   { id: 'dorm', title: 'Descanso merecido', desc: 'Excava un Dormitorio para aumentar la población máxima.', goal: 1, prog: S => cham(S, 'dorm'), reward: { food: 60 }, xp: 35 },
