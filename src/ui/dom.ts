@@ -64,7 +64,13 @@ export function costEl(cost: Cost, res?: Record<string, number>) { return h('spa
 let toastBox: HTMLElement | null = null;
 export function setToastBox(el: HTMLElement) { toastBox = el; }
 export function toast(icon: string, title: string, text = '', kind = 'info', onClick?: () => void, dur = 4500) {
-  if (!toastBox) return;
+  // Fuera de partida el HUD (y su contenedor de avisos) no existe: se usa uno propio
+  // sobre los menús para que errores de carga o confirmaciones no se pierdan en silencio.
+  if (!toastBox || !toastBox.isConnected) {
+    let mb = document.getElementById('menu-toasts');
+    if (!mb) { mb = h('div', { class: 'toasts', id: 'menu-toasts', style: { top: '16px', zIndex: '40' } }); document.getElementById('app')!.append(mb); }
+    toastBox = mb;
+  }
   while (toastBox.children.length > 3) toastBox.firstElementChild!.remove();
   const el = h('div', { class: 'toast ' + kind + (onClick ? ' click' : '') },
     h('div', { class: 'ti' }, icon),
