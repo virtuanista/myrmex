@@ -1,3 +1,5 @@
+<p align="center"><b>Español</b> · <a href="README.en.md">English</a></p>
+
 <div align="center">
 
 # MYRMEX — Imperio bajo la hierba
@@ -111,13 +113,6 @@ La versión web se publica en GitHub Pages desde la rama `gh-pages`, que contien
 ## Licencia
 
 Código, arte y audio originales, publicados con licencia [MIT](LICENSE).
-
-<details>
-<summary><b>In English</b></summary>
-
-*MYRMEX* is an ant-colony real-time strategy game for the browser: dig tunnels and chambers, raise castes, research technologies and defeat rival colonies. All art and audio are procedurally generated with Canvas 2D and Web Audio, the whole game ships as a single HTML file, and it has 2-player peer-to-peer co-op over WebRTC. [Play it in your browser](https://virtuanista.github.io/myrmex/).
-
-</details>
 
 <p align="center">
 	Repositorio generado por <a href="https://github.com/virtuanista" target="_blank">virtu 🎣</a>
