@@ -118,3 +118,19 @@ Código, arte y audio originales, publicados con licencia [MIT](LICENSE).
 *MYRMEX* is an ant-colony real-time strategy game for the browser: dig tunnels and chambers, raise castes, research technologies and defeat rival colonies. All art and audio are procedurally generated with Canvas 2D and Web Audio, the whole game ships as a single HTML file, and it has 2-player peer-to-peer co-op over WebRTC. [Play it in your browser](https://virtuanista.github.io/myrmex/).
 
 </details>
+
+<p align="center">
+	Repositorio generado por <a href="https://github.com/virtuanista" target="_blank">virtu 🎣</a>
+</p>
+
+<p align="center">
+	<img src="https://open.soniditos.com/cat_footer.svg" alt="Gatito" />
+</p>
+
+<p align="center">
+	Copyright &copy; 2026
+</p>
+
+<p align="center">
+	<a href="LICENSE"><img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=MIT&logoColor=d9e0ee&colorA=363a4f&colorB=b7bdf8" alt="Licencia MIT" /></a>
+</p>
